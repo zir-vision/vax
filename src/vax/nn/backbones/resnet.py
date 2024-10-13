@@ -28,11 +28,11 @@ class ResNet(nnx.Module):
                 log.debug(f"Block {i+1}, {j+1} stride: {stride}")
                 if i == 0 and j == 0:
                     in_features = num_filters
-                elif j == 0:
-                    in_features = num_filters * 2 ** (i - 1)
-                    in_features = in_features * block_cls.expansion
                 else:
-                    in_features = num_filters * 2**i
+                    if j == 0:
+                        in_features = num_filters * 2 ** (i - 1)
+                    else:
+                        in_features = num_filters * 2**i
                     in_features = in_features * block_cls.expansion
                 
                 blocks.append(
